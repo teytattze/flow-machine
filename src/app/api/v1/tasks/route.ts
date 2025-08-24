@@ -4,7 +4,7 @@ import {
   createTaskRequestBodySchema,
   getTaskRequestQuerySchema,
   Task,
-} from "@/shared/tasks/tasks.types";
+} from "@/modules/tasks/tasks.types";
 import { UTCDate } from "@date-fns/utc";
 import type { NextRequest } from "next/server";
 
