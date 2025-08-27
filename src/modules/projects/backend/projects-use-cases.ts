@@ -1,12 +1,12 @@
 import { UTCDate } from '@date-fns/utc';
-import { removeEntity, updateEntity } from '@/lib/backend/use-case-utils';
-import { newId } from '@/lib/id';
+import { newId } from '@/libs/backend/id';
 import {
   fromMongoDoc,
   getProjectCollection,
   toMongoDoc,
   toMongoDocId,
-} from '@/lib/mongo';
+} from '@/libs/backend/mongodb';
+import { removeEntity, updateEntity } from '@/libs/backend/use-case-utils';
 import { AppError } from '@/modules/app-error/app-error';
 import {
   CreateProjectRequestBody,
