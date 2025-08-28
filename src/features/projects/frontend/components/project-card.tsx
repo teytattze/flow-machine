@@ -43,10 +43,10 @@ function DefaultProjectCard({ project }: DefaultProjectCardProps) {
       </CardHeader>
       <CardFooter className="flex flex-col gap-2">
         <Button asChild className="w-full">
-          <Link href={`/dashboard/docs?projectId=${project.id}`}>Docs</Link>
+          <Link href={`/dashboard/projects/${project.id}/docs`}>Docs</Link>
         </Button>
         <Button asChild className="w-full" variant="secondary">
-          <Link href={`/dashboard/tickets?projectId=${project.id}`}>
+          <Link href={`/dashboard/projects/${project.id}/tickets`}>
             Tickets
           </Link>
         </Button>

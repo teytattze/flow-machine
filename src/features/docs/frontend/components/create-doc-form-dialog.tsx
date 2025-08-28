@@ -1,5 +1,3 @@
-'use client';
-
 import { zodResolver } from '@hookform/resolvers/zod';
 import { IconPlus } from '@tabler/icons-react';
 import { useMutation } from '@tanstack/react-query';
@@ -26,38 +24,35 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { appQueryClient } from '@/libs/frontend/query-client';
-import { ticketsHttpClient } from '@/modules/tickets/frontend/tickets-http-client';
 import {
-  CreateTicketRequestBody,
-  createTicketRequestBodySchema,
-} from '@/modules/tickets/tickets-types';
+  CreateDocRequestBody,
+  createDocRequestBodySchema,
+} from '@/modules/docs/docs-types';
+import { docsHttpClient } from '@/modules/docs/frontend/docs-http-client';
 
-type CreateTicketFormDialogProps = { projectId: string };
+type CreateDocFormDialogProps = { projectId: string };
 
-export function CreateTicketFormDialog({
-  projectId,
-}: CreateTicketFormDialogProps) {
-  const form = useForm<CreateTicketRequestBody>({
-    resolver: zodResolver(createTicketRequestBodySchema),
+export function CreateDocFormDialog({ projectId }: CreateDocFormDialogProps) {
+  const form = useForm<CreateDocRequestBody>({
+    resolver: zodResolver(createDocRequestBodySchema),
     defaultValues: {
       title: '',
-      description: '',
-      docs: [],
+      content: '',
+      kind: 'PRODUCT',
       project: { id: projectId },
-      status: 'TODO',
     },
   });
 
   const { mutate } = useMutation({
-    mutationFn: (data: CreateTicketRequestBody) => {
-      return ticketsHttpClient.post('', { json: data });
+    mutationFn: (data: CreateDocRequestBody) => {
+      return docsHttpClient.post('', { json: data });
     },
     onSuccess: () => {
-      appQueryClient.invalidateQueries({ queryKey: ['tasks'] });
+      appQueryClient.invalidateQueries({ queryKey: ['docs'] });
     },
   });
 
-  const handleSubmit = (data: CreateTicketRequestBody) => {
+  const handleSubmit = (data: CreateDocRequestBody) => {
     mutate(data);
   };
 
@@ -65,7 +60,7 @@ export function CreateTicketFormDialog({
     <Dialog>
       <DialogTrigger asChild>
         <Button>
-          <IconPlus /> New Tickets
+          <IconPlus /> New Docs
         </Button>
       </DialogTrigger>
       <DialogContent className="w-7xl">
@@ -75,7 +70,7 @@ export function CreateTicketFormDialog({
             className="space-y-4"
           >
             <DialogHeader>
-              <DialogTitle>New Ticket</DialogTitle>
+              <DialogTitle>New Doc</DialogTitle>
               <DialogDescription>
                 Create a new task here. Click save when you&apos;re done.
               </DialogDescription>
@@ -96,7 +91,7 @@ export function CreateTicketFormDialog({
               />
               <FormField
                 control={form.control}
-                name="description"
+                name="content"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Description</FormLabel>

@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { appQueryClient } from '@/libs/frontend/query-client';
 import { projectsHttpClient } from '@/modules/projects/frontend/projects-http-client';
 import {
@@ -34,10 +35,7 @@ import {
 export function CreateProjectFormDialog() {
   const form = useForm<CreateProjectRequestBody>({
     resolver: zodResolver(createProjectRequestBodySchema),
-    defaultValues: {
-      displayName: '',
-      description: '',
-    },
+    defaultValues: { displayName: '', description: '' },
   });
 
   const { mutate } = useMutation({
@@ -61,7 +59,7 @@ export function CreateProjectFormDialog() {
           <IconPlus /> New Project
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="w-7xl">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}
@@ -81,7 +79,7 @@ export function CreateProjectFormDialog() {
                   <FormItem>
                     <FormLabel>Display Name</FormLabel>
                     <FormControl>
-                      <Input placeholder="Public visible name" {...field} />
+                      <Input {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -94,7 +92,7 @@ export function CreateProjectFormDialog() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Input placeholder="Describe your project" {...field} />
+                      <Textarea {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

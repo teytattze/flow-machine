@@ -6,7 +6,7 @@ import { ProjectCard } from '@/features/projects/frontend/components/project-car
 import { projectsHttpClient } from '@/modules/projects/frontend/projects-http-client';
 import { Project } from '@/modules/projects/projects-types';
 
-export function ProjectPage() {
+export function ProjectsPage() {
   const { data: projects = [], status } = useQuery({
     queryKey: ['projects'],
     queryFn: () => projectsHttpClient.get('').json<Project[]>(),
